@@ -1,5 +1,8 @@
 package ge.springboot.sweeftdigital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import ge.springboot.sweeftdigital.enums.Gender;
 import lombok.Getter;
@@ -13,8 +16,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "\"user\"")
-//@Getter
-//@Setter
+@Getter
+@Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User{
 
     @Id
@@ -42,6 +46,7 @@ public class User{
     List<Role> roles = new ArrayList<>();
 
     @OneToOne
+    @JoinColumn(name = "server_id")
     private Server server;
 
     public User(Integer id, String name, String surname, String email, String password, int age, Gender gender, Date birthDate, boolean enable, boolean locked, List<Role> roles, Server server) {
@@ -63,101 +68,5 @@ public class User{
 
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public Server getServer() {
-        return server;
-    }
-
-    public void setServer(Server server) {
-        this.server = server;
-    }
 }

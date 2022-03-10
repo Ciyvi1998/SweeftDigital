@@ -1,11 +1,16 @@
 package ge.springboot.sweeftdigital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import ge.springboot.sweeftdigital.enums.ServerStatus;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Server {
 
     @Id
@@ -16,6 +21,9 @@ public class Server {
     private Date expirationDate;
     @Enumerated(value = EnumType.STRING)
     private ServerStatus status;
+
+    @OneToOne(mappedBy = "server")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -57,4 +65,5 @@ public class Server {
     public void setCapacity_MB(int capacity_MB) {
         this.capacity_MB = capacity_MB;
     }
+
 }
